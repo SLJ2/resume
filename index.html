@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SLJ · 个人主页</title>
+<meta name="description" content="SLJ 的个人主页：网络工程专业，F1 与 B 站爱好者。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%23070a0c'/><rect x='6' y='6' width='20' height='20' rx='2' fill='none' stroke='%2300bd7e' stroke-width='2'/><path d='M11 20V12h6v2.5h-3.5V20z' fill='%2300bd7e'/></svg>">
+<style>
+  :root {
+    --bg: hsl(204, 25%, 3%);
+    --panel-1000: hsl(206, 24%, 7%);
+    --panel-950: hsl(208, 24%, 10%);
+    --panel-900: hsl(210, 24%, 15%);
+    --panel-850: hsl(209, 22%, 18%);
+    --panel-800: hsl(209, 20%, 23%);
+    --line: hsla(211, 13%, 65%, .16);
+    --line-strong: hsla(211, 13%, 65%, .3);
+    --text: hsl(214, 15%, 91%);
+    --muted: hsl(211, 13%, 65%);
+    --dim: hsl(211, 10%, 53%);
+    --emerald: hsl(160, 100%, 37%);
+    --emerald-bright: hsl(161, 100%, 42%);
+    --emerald-deep: hsl(166, 100%, 9%);
+    --gold: hsl(48, 96%, 53%);
+    --radius: 3px;
+    --max: 1120px;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Cascadia Mono", "Liberation Mono", "Courier New", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: hsla(160, 100%, 37%, .3); }
+
+  a { color: var(--emerald-bright); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  .mono { font-family: var(--mono); }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: hsla(204, 25%, 4%, .9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .topbar .wrap {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 56px;
+  }
+
+  .brand {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .brand:hover { text-decoration: none; }
+
+  .brand .dot { color: var(--emerald); }
+
+  .topnav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-right: auto;
+  }
+
+  .topnav a {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .06em;
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+
+  .topnav a:hover { color: var(--text); }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 34px;
+    padding: 0 13px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel-850);
+    color: var(--text);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+
+  .btn:hover {
+    background: var(--panel-800);
+    border-color: hsla(211, 13%, 65%, .45);
+    text-decoration: none;
+  }
+
+  .btn.solid {
+    background: var(--emerald);
+    border-color: var(--emerald);
+    color: var(--emerald-deep);
+    font-weight: 700;
+  }
+
+  .btn.solid:hover {
+    background: var(--emerald-bright);
+    border-color: var(--emerald-bright);
+    color: var(--emerald-deep);
+  }
+
+  .btn.ghost {
+    background: transparent;
+    border-color: var(--line);
+    color: var(--muted);
+  }
+
+  .btn.ghost:hover { color: var(--text); border-color: var(--line-strong); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/2024_British_Grand_Prix%2C_Hamilton_%281%29.jpg/1280px-2024_British_Grand_Prix%2C_Hamilton_%281%29.jpg");
+    background-size: cover;
+    background-position: center 38%;
+    background-repeat: no-repeat;
+    opacity: .5;
+    filter: saturate(.72) contrast(1.05) brightness(.85);
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, hsla(204, 25%, 3%, .5) 0%, hsla(204, 25%, 3%, .12) 30%, hsla(204, 25%, 3%, .82) 80%, hsl(204, 25%, 3%) 100%),
+      linear-gradient(90deg, hsl(204, 25%, 3%) 4%, hsla(204, 25%, 3%, .95) 38%, hsla(204, 25%, 3%, .74) 70%, hsla(204, 25%, 3%, .6) 100%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.3fr .7fr;
+    gap: 56px;
+    align-items: center;
+    padding: 88px 0 80px;
+  }
+
+  .kicker {
+    margin: 0 0 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--emerald-bright);
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(3.2rem, 8vw, 5.2rem);
+    line-height: .95;
+    letter-spacing: -.035em;
+    font-weight: 700;
+  }
+
+  .hero h1 .dot { color: var(--emerald); }
+
+  .hero .lead {
+    max-width: 44ch;
+    margin: 20px 0 0;
+    font-size: 17px;
+    color: hsl(211, 13%, 78%);
+  }
+
+  .hero .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  /* ---------- profile panel ---------- */
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: hsla(210, 24%, 15%, .88);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    overflow: hidden;
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    background: hsla(209, 22%, 18%, .92);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .panel-head .accent { color: var(--emerald-bright); }
+
+  .panel dl { margin: 0; }
+
+  .panel .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13.5px;
+  }
+
+  .panel .row:last-child { border-bottom: 0; }
+
+  .panel dt {
+    color: var(--muted);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .panel dd {
+    margin: 0;
+    text-align: right;
+    color: var(--text);
+  }
+
+  .panel dd a { text-decoration: none; }
+  .panel dd a:hover { text-decoration: underline; }
+
+  .num { font-family: var(--mono); color: var(--gold); }
+
+  .dim { color: var(--dim) !important; }
+
+  /* ---------- sections ---------- */
+  .section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sec-head h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+
+  .sec-head h2::before {
+    content: "";
+    width: 3px;
+    height: 18px;
+    background: var(--emerald);
+    border-radius: 1px;
+  }
+
+  .sec-head .tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+
+  /* ---------- about ---------- */
+  .about {
+    display: grid;
+    grid-template-columns: 1.6fr .8fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about p {
+    max-width: 68ch;
+    margin: 0 0 14px;
+    color: hsl(211, 12%, 74%);
+  }
+
+  .about p:last-child { margin-bottom: 0; }
+
+  .about strong { color: var(--text); font-weight: 600; }
+
+  .keywords .panel-head { border-bottom: 1px solid var(--line); }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .pill {
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--panel-950);
+    color: hsl(211, 13%, 74%);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .pill.hot { border-color: hsla(160, 100%, 37%, .35); color: var(--emerald-bright); }
+
+  /* ---------- interest cards ---------- */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--panel-950);
+    overflow: hidden;
+    transition: border-color .18s ease, transform .18s ease;
+  }
+
+  .card:hover {
+    border-color: hsla(160, 100%, 37%, .45);
+    transform: translateY(-2px);
+  }
+
+  .card-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--panel-1000);
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(.9) contrast(1.04);
+    transition: transform .4s ease;
+  }
+
+  .card:hover .card-media img { transform: scale(1.03); }
+
+  .card-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 45%, hsla(208, 24%, 10%, .55) 100%);
+    pointer-events: none;
+  }
+
+  /* taffy card has no free-license photo: typographic media block */
+  .media-taffy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background:
+      radial-gradient(340px circle at 30% 20%, hsla(338, 95%, 72%, .22), transparent 62%),
+      radial-gradient(320px circle at 78% 85%, hsla(160, 100%, 37%, .14), transparent 60%),
+      var(--panel-1000);
+  }
+
+  .media-taffy::after { display: none; }
+
+  .media-taffy .big {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    color: hsl(338, 90%, 82%);
+    text-shadow: 0 0 32px hsla(338, 95%, 72%, .35);
+  }
+
+  .media-taffy .small {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 18px 18px;
+  }
+
+  .card-body .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--emerald-bright);
+  }
+
+  .card-body h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+
+  .card-body p {
+    margin: 0;
+    color: hsl(211, 11%, 62%);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .card-meta span {
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .06em;
+    color: var(--muted);
+  }
+
+  /* ---------- two-column panels ---------- */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .empty {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 18px 14px;
+    color: var(--dim);
+    font-size: 13px;
+  }
+
+  .empty .mark { color: var(--emerald); font-family: var(--mono); }
+
+  /* ---------- contact ---------- */
+  .contact {
+    border: 1px solid hsla(160, 100%, 37%, .28);
+    border-radius: 4px;
+    background:
+      linear-gradient(180deg, hsla(160, 100%, 37%, .07), transparent 55%),
+      var(--panel-950);
+    padding: 34px;
+  }
+
+  .contact h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .contact p {
+    max-width: 56ch;
+    margin: 10px 0 0;
+    color: var(--muted);
+  }
+
+  .contact .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .contact .note {
+    margin-top: 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--dim);
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding: 26px 0 34px;
+  }
+
+  .foot {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--dim);
+  }
+
+  .foot .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .credits {
+    max-width: 78ch;
+    line-height: 1.8;
+    color: var(--dim);
+    font-size: 11.5px;
+  }
+
+  .foot a { color: var(--muted); text-decoration: none; }
+  .foot a:hover { color: var(--text); text-decoration: underline; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: 64px 0 58px;
+    }
+
+    .hero .panel { max-width: 520px; }
+
+    .about { grid-template-columns: 1fr; gap: 28px; }
+
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 18px; }
+
+    .topbar .wrap { gap: 18px; }
+
+    .topnav { gap: 14px; }
+
+    .topnav a { font-size: 11.5px; }
+
+    .topbar .btn { display: none; }
+
+    .section { padding: 44px 0; }
+
+    .hero .lead { font-size: 15.5px; }
+
+    .contact { padding: 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .card, .card-media img, .btn { transition: none; }
+    .card:hover { transform: none; }
+    .card:hover .card-media img { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">SLJ<span class="dot">.</span></a>
+    <nav class="topnav" aria-label="页面导航">
+      <a href="#about">关于</a>
+      <a href="#interests">兴趣</a>
+      <a href="#more">经历</a>
+      <a href="#contact">联系</a>
+    </nav>
+    <a class="btn ghost" href="https://github.com/SLJ2" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div>
+        <p class="kicker">Network Engineering · 个人主页</p>
+        <h1>SLJ<span class="dot">.</span></h1>
+        <p class="lead">网络工程专业在读。看 F1，逛 B 站，喜欢永雏塔菲，最喜欢的车手是 Lewis Hamilton。</p>
+        <div class="actions">
+          <a class="btn solid" href="#contact">联系我</a>
+          <a class="btn" href="#interests">看看兴趣</a>
+        </div>
+      </div>
+
+      <aside class="panel" aria-label="基本资料">
+        <div class="panel-head">
+          <span>资料 / Profile</span>
+          <span class="accent">#44</span>
+        </div>
+        <dl>
+          <div class="row">
+            <dt>专业</dt>
+            <dd>网络工程</dd>
+          </div>
+          <div class="row">
+            <dt>兴趣</dt>
+            <dd>F1 · Bilibili</dd>
+          </div>
+          <div class="row">
+            <dt>最喜欢</dt>
+            <dd>永雏塔菲</dd>
+          </div>
+          <div class="row">
+            <dt>车手</dt>
+            <dd>Lewis Hamilton</dd>
+          </div>
+          <div class="row">
+            <dt>GitHub</dt>
+            <dd><a href="https://github.com/SLJ2" target="_blank" rel="noopener">SLJ2</a></dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>关于</h2>
+        <span class="tag">01 / About</span>
+      </div>
+
+      <div class="about">
+        <div>
+          <p>我是 <strong>SLJ</strong>，目前就读于<strong>网络工程</strong>专业。这个页面用来放一些基本信息，以及平时关注的东西。</p>
+          <p>空闲时间最常待在 B 站，喜欢看 <strong>永雏塔菲</strong> 的视频和直播，属于日常放松的一部分。</p>
+          <p>也一直关注 <strong>F1</strong>。最喜欢的车手是 <strong>Lewis Hamilton</strong>——七届世界冠军，44 号车，从迈凯伦到梅赛德斯，2025 年起效力法拉利。</p>
+        </div>
+
+        <aside class="panel keywords" aria-label="关键词">
+          <div class="panel-head"><span>关键词 / Tags</span><span class="accent">05</span></div>
+          <div class="pill-row">
+            <span class="pill hot">网络工程</span>
+            <span class="pill hot">F1</span>
+            <span class="pill">Lewis Hamilton</span>
+            <span class="pill">永雏塔菲</span>
+            <span class="pill">Bilibili</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="interests">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>兴趣</h2>
+        <span class="tag">02 / Interests</span>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="card-media">
+            <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Vodafone_McLaren_Mercedes_Formula_1_Car_%287322753674%29.jpg/1280px-Vodafone_McLaren_Mercedes_Formula_1_Car_%287322753674%29.jpg"
+                 alt="一辆迈凯伦梅赛德斯 F1 赛车" loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="label">Formula 1</span>
+            <h3>F1 赛事</h3>
+            <p>周末的固定节目。从排位赛看到正赛，关注车队策略、轮胎和赛道上的每一次超车。</p>
+            <div class="card-meta">
+              <span>比赛周末</span>
+              <span>车队策略</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/Lewis_Hamilton_2024_Chinese_GP.jpg/1280px-Lewis_Hamilton_2024_Chinese_GP.jpg"
+                 alt="Lewis Hamilton 在 2024 年中国大奖赛" loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="label">Driver #44</span>
+            <h3>Lewis Hamilton</h3>
+            <p>七届世界冠军，44 号车。从迈凯伦出道，在梅赛德斯拿下六冠，2025 年起加盟法拉利。</p>
+            <div class="card-meta">
+              <span class="num">7 × WDC</span>
+              <span class="num">#44</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media media-taffy" aria-hidden="true">
+            <span class="big">塔菲</span>
+            <span class="small">Bilibili UP</span>
+          </div>
+          <div class="card-body">
+            <span class="label">Bilibili</span>
+            <h3>永雏塔菲</h3>
+            <p>B 站 UP 主、虚拟主播。喜欢看她直播和视频，是平时最常打开的直播间之一。</p>
+            <div class="card-meta">
+              <span>直播</span>
+              <span>视频</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="more">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>经历与技能</h2>
+        <span class="tag">03 / More</span>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-head"><span>经历 / Experience</span><span class="accent">—</span></div>
+          <dl>
+            <div class="row">
+              <dt>教育</dt>
+              <dd>网络工程专业 · 学校与时间待补充</dd>
+            </div>
+            <div class="row">
+              <dt>其他</dt>
+              <dd class="dim">待补充</dd>
+            </div>
+          </dl>
+          <div class="empty">
+            <span class="mark">▸</span>
+            <span>更多经历还在整理中，之后可以继续补充。</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><span>技能 / Skills</span><span class="accent">—</span></div>
+          <div class="empty">
+            <span class="mark">▸</span>
+            <span>内容待补充。可以填网络工程相关课程、工具或语言。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>联系</h2>
+        <p>想聊 F1、网络工程，或者只是打个招呼，都可以通过 GitHub 找到我。</p>
+        <div class="actions">
+          <a class="btn solid" href="https://github.com/SLJ2" target="_blank" rel="noopener">GitHub · SLJ2</a>
+          <span class="btn ghost" aria-disabled="true">邮箱 · 待补充</span>
+        </div>
+        <p class="note">// 其他联系方式待补充</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="row">
+      <span>© 2026 SLJ</span>
+      <span class="mono">Hosted on GitHub Pages</span>
+    </div>
+    <p class="credits">
+      图片来自 Wikimedia Commons：
+      <a href="https://commons.wikimedia.org/wiki/File:2024_British_Grand_Prix,_Hamilton_(1).jpg" target="_blank" rel="noopener">Jen Ross</a>（CC BY 2.0）、
+      <a href="https://commons.wikimedia.org/wiki/File:Lewis_Hamilton_2024_Chinese_GP.jpg" target="_blank" rel="noopener">Liauzh</a>（CC BY-SA 4.0）、
+      <a href="https://commons.wikimedia.org/wiki/File:Vodafone_McLaren_Mercedes_Formula_1_Car_(7322753674).jpg" target="_blank" rel="noopener">William Murphy</a>（CC BY-SA 2.0）。
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
